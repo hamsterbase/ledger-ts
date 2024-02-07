@@ -28,6 +28,7 @@ export function transactionBuilder(ledger: Ledger) {
       flag: "*",
       narration,
       postings,
+      payee,
     });
   }
 

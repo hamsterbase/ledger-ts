@@ -1,3 +1,4 @@
+import { Postings } from "./postings.js";
 import {
   EAccountType,
   IAccount,
@@ -21,14 +22,14 @@ export class Account implements IAccount {
     this.closeDate = option.closeDate;
   }
 
-  posting(value: number, currency?: ICurrency): IPostings {
-    return {
+  posting(value: number, currency?: ICurrency): Postings {
+    return new Postings({
       account: this,
       amount: {
         value,
         currency: currency ?? this.defaultCurrency,
       },
-    };
+    });
   }
 
   balance(date: string, value: number, currency?: ICurrency): IBalance {

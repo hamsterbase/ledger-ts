@@ -3,6 +3,7 @@ import {
   IBalance,
   ICurrency,
   ILedger,
+  IPostings,
   ITransaction,
 } from "../core/type.js";
 
@@ -78,14 +79,28 @@ ${this.formateDate(p.date)} balance ${this.accountName(p.account)} ${
 ${this.formateDate(p.date)} ${p.flag} ${payeeAndNarration}
 ${p.postings
   .map((o) => {
-    return `  ${this.accountName(o.account)} ${o.amount.value} ${
-      o.amount.currency.symbol
-    }`;
+    return `  ${this.accountName(o.account)} ${this.formatPostingsPrice(o)}`;
   })
   .join("\n")}`.trim();
         return res;
       })
       .join("\n\n");
+  }
+
+  private formatPostingsPrice(postings: IPostings) {
+    const amount = postings.amount;
+    if (!postings.as) {
+      return `${amount.value} ${amount.currency.symbol}`;
+    }
+    const as = postings.as;
+    switch (as.type) {
+      case "price": {
+        return `${amount.value} ${amount.currency.symbol} @ ${as.amount.value} ${as.amount.currency.symbol}`;
+      }
+      case "cost": {
+        return `${amount.value} ${amount.currency.symbol} @@ ${as.amount.value} ${as.amount.currency.symbol}`;
+      }
+    }
   }
 
   /**

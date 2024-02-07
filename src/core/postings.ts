@@ -19,44 +19,50 @@ export class Postings implements IPostings {
   }
 
   asPrice(value: number, currency: ICurrency): IPostings {
-    return new Postings({
-      account: this.account,
-      amount: this.amount,
-      metadata: this.metadata,
-      as: {
+    return new Postings(
+      {
+        account: this.account,
+        amount: this.amount,
+        metadata: this.metadata,
+      },
+      {
         type: "price",
         amount: {
           value,
           currency,
         },
-      },
-    });
+      }
+    );
   }
 
   asCost(value: number, currency: ICurrency): IPostings {
-    return new Postings({
-      account: this.account,
-      amount: this.amount,
-      metadata: this.metadata,
-      as: {
+    return new Postings(
+      {
+        account: this.account,
+        amount: this.amount,
+        metadata: this.metadata,
+      },
+      {
         type: "cost",
         amount: {
           value,
           currency,
         },
-      },
-    });
+      }
+    );
   }
 
   meta(key: string, value: string) {
-    return new Postings({
-      account: this.account,
-      amount: this.amount,
-      metadata: {
-        ...this.metadata,
-        [key]: value,
+    return new Postings(
+      {
+        account: this.account,
+        amount: this.amount,
+        metadata: {
+          ...this.metadata,
+          [key]: value,
+        },
       },
-      as: this.as,
-    });
+      this.as
+    );
   }
 }
