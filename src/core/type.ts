@@ -64,9 +64,16 @@ export const enum EAccountType {
   Equity = "Equity",
 }
 
+export interface IBalance {
+  date: Date;
+  amount: IAmount;
+  account: IAccount;
+}
+
 export interface ILedger {
   prices: IPrice[];
   transactions: ITransaction[];
   accounts: IAccount[];
   currencies: ICurrency[];
+  balances: IBalance[];
 }

@@ -1,4 +1,4 @@
-import { ICurrency } from "./type.js";
+import { IAmount, ICurrency } from "./type.js";
 
 export class Currency implements ICurrency {
   public symbol: string;
@@ -22,5 +22,12 @@ export class Currency implements ICurrency {
       symbol: this.symbol,
       name: value,
     });
+  }
+
+  amount(value: number): IAmount {
+    return {
+      value,
+      currency: this,
+    };
   }
 }

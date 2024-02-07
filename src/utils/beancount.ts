@@ -1,4 +1,10 @@
-import { IAccount, ICurrency, ILedger, ITransaction } from "../core/type.js";
+import {
+  IAccount,
+  IBalance,
+  ICurrency,
+  ILedger,
+  ITransaction,
+} from "../core/type.js";
 
 class BeanCount {
   serializationLedger(ledger: ILedger) {
@@ -40,6 +46,17 @@ ${this.serializationTransactions(ledger.transactions)}
         return res;
       })
       .join("\n\n");
+  }
+
+  serializationBalances(balances: IBalance[]): string {
+    return balances
+      .map((p) => {
+        return `
+${this.formateDate(p.date)} balance ${this.accountName(p.account)} ${
+          p.amount.value
+        } ${p.amount.currency.symbol}`.trim();
+      })
+      .join("\n");
   }
 
   private accountName(account: IAccount): string {
