@@ -1,0 +1,11 @@
+{
+  "name": "@hamsterbase/ledger-ts",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "git@github.com:hamsterbase/ledger-ts.git",
+  "author": "monster <monster@hamsterbase.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
