@@ -1,12 +1,12 @@
 import { expect, it } from "vitest";
-import { Currency } from "../core/currency";
-import { EAccountType } from "../core/type";
+import { Currency } from "../core/currency.js";
+import { EAccountType } from "../core/type.js";
 import {
   buildAccountHierarchy,
   createAccountNodeConfig,
   flattenAccountHierarchy,
-} from "./account-hierarchy";
-import { beanCount } from "./beancount";
+} from "./account-hierarchy.js";
+import { beanCount } from "./beancount.js";
 
 it("test accountTreeBuilder", () => {
   const USD = Currency.create("2017-01-01", "USD");

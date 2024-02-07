@@ -1,4 +1,4 @@
-import { IAccount, ICurrency, ILedger, IPrice, ITransaction } from "./type";
+import { IAccount, ICurrency, ILedger, IPrice, ITransaction } from "./type.js";
 
 export class Ledger implements ILedger {
   public prices: IPrice[] = [];

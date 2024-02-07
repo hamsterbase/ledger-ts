@@ -1,4 +1,10 @@
-import { IAccount, IAmount, ICurrency, IPostings, IPostingsAs } from "./type";
+import {
+  IAccount,
+  IAmount,
+  ICurrency,
+  IPostings,
+  IPostingsAs,
+} from "./type.js";
 
 export class Postings implements IPostings {
   public account: IAccount;

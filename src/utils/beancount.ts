@@ -1,4 +1,4 @@
-import { IAccount, ICurrency, ILedger, ITransaction } from "../core/type";
+import { IAccount, ICurrency, ILedger, ITransaction } from "../core/type.js";
 
 class BeanCount {
   serializationLedger(ledger: ILedger) {

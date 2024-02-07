@@ -1,8 +1,8 @@
-export { transactionBuilder } from "./transaction";
+export { transactionBuilder } from "./transaction.js";
 
 export {
-  buildAccountHierarchy as accountTreeBuilder,
-  createAccountNodeConfig as accountTreeOption,
-  AccountHierarchy as AccountTree,
-  AccountNodeConfig as AccountTreeOption,
-} from "./account-hierarchy";
+  buildAccountHierarchy,
+  createAccountNodeConfig,
+  AccountHierarchy,
+  AccountNodeConfig,
+} from "./account-hierarchy.js";

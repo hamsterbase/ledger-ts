@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
-import { beanCount } from "./beancount";
-import { Currency } from "../core/currency";
+import { beanCount } from "./beancount.js";
+import { Currency } from "../core/currency.js";
 
 it("test serializationCurrencies", () => {
   const USD = Currency.create("2017-01-01", "USD").setName("Dollar");

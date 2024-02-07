@@ -1,5 +1,5 @@
-import { Account } from "../core/account";
-import { EAccountType, ICurrency } from "../core/type";
+import { Account } from "../core/account.js";
+import { EAccountType, ICurrency } from "../core/type.js";
 
 export interface AccountNodeConfig {
   open: string;

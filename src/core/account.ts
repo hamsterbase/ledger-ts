@@ -1,4 +1,4 @@
-import { ICurrency, EAccountType, IAccount, IPostings } from "./type";
+import { ICurrency, EAccountType, IAccount, IPostings } from "./type.js";
 
 export class Account implements IAccount {
   public namespace: string[];

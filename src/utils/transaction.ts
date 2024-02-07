@@ -1,5 +1,5 @@
-import { Ledger } from "../core/ledger";
-import { IPostings } from "../core/type";
+import { Ledger } from "../core/ledger.js";
+import { IPostings } from "../core/type.js";
 
 export function transactionBuilder(ledger: Ledger) {
   function tr(date: string, narration: string, ...postings: IPostings[]): void;
