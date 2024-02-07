@@ -1,27 +1,27 @@
 import { Account } from "../core/account";
 import { EAccountType, ICurrency } from "../core/type";
 
-export interface AccountTreeOption {
+export interface AccountNodeConfig {
   open: string;
   close?: string;
   currency?: ICurrency;
 }
 
-export type AccountTree = {
-  [key: string]: AccountTree | AccountTreeOption;
+export type AccountHierarchy = {
+  [key: string]: AccountHierarchy | AccountNodeConfig;
 };
 
-export type AccountTreeBuilderRes<T> = {
-  [P in keyof T]: T[P] extends AccountTree
-    ? AccountTreeBuilderRes<T[P]>
+export type BuiltAccountHierarchy<T> = {
+  [P in keyof T]: T[P] extends AccountHierarchy
+    ? BuiltAccountHierarchy<T[P]>
     : Account;
 };
 
 const specialKey = "_is_account_tree_option_";
 
-export function accountTreeOption(
-  option: AccountTreeOption
-): AccountTreeOption {
+export function createAccountNodeConfig(
+  option: AccountNodeConfig
+): AccountNodeConfig {
   return {
     ...option,
     //@ts-expect-error
@@ -29,22 +29,22 @@ export function accountTreeOption(
   };
 }
 
-function isAccountTreeOption(
-  option: AccountTreeOption | AccountTree
-): option is AccountTreeOption {
+function isAccountNodeConfig(
+  option: AccountNodeConfig | AccountHierarchy
+): option is AccountNodeConfig {
   return specialKey in option;
 }
 
-export function accountTreeBuilder<T extends AccountTree>(
+export function buildAccountHierarchy<T extends AccountHierarchy>(
   defaultCurrency: ICurrency,
   type: EAccountType,
   tree: T,
   prefix: string[] = []
-): AccountTreeBuilderRes<T> {
+): BuiltAccountHierarchy<T> {
   const res: Record<string, any> = {};
   Object.keys(tree).forEach((key) => {
     const option = tree[key];
-    if (isAccountTreeOption(option)) {
+    if (isAccountNodeConfig(option)) {
       res[key] = new Account({
         namespace: prefix.concat(key),
         type,
@@ -53,7 +53,7 @@ export function accountTreeBuilder<T extends AccountTree>(
         closeDate: option.close ? new Date(option.close) : undefined,
       });
     } else {
-      res[key] = accountTreeBuilder(
+      res[key] = buildAccountHierarchy(
         defaultCurrency,
         type,
         option,
@@ -61,16 +61,18 @@ export function accountTreeBuilder<T extends AccountTree>(
       );
     }
   });
-  return res as AccountTreeBuilderRes<T>;
+  return res as BuiltAccountHierarchy<T>;
 }
 
-export function accountTreeToList(accountTree: Record<string, any>): Account[] {
+export function flattenAccountHierarchy(
+  accountTree: Record<string, any>
+): Account[] {
   return Object.values(accountTree)
     .map((account) => {
       if (account instanceof Account) {
         return account;
       } else {
-        return accountTreeToList(account);
+        return flattenAccountHierarchy(account);
       }
     })
     .flat();

@@ -1,30 +1,30 @@
 import { expect, it } from "vitest";
+import { Currency } from "../core/currency";
 import { EAccountType } from "../core/type";
-import { Currency } from "./../core/currency";
 import {
-  accountTreeBuilder,
-  accountTreeOption,
-  accountTreeToList,
-} from "./account-tree";
+  buildAccountHierarchy,
+  createAccountNodeConfig,
+  flattenAccountHierarchy,
+} from "./account-hierarchy";
 import { beanCount } from "./beancount";
 
 it("test accountTreeBuilder", () => {
   const USD = Currency.create("2017-01-01", "USD");
   const CNY = Currency.create("2017-01-01", "CNY");
 
-  const assets = accountTreeBuilder(CNY, EAccountType.Assets, {
+  const assets = buildAccountHierarchy(CNY, EAccountType.Assets, {
     CN: {
       Bank: {
         BoC: {
-          C1234: accountTreeOption({ open: "2017-01-01" }),
+          C1234: createAccountNodeConfig({ open: "2017-01-01" }),
         },
         Card: {
-          USTC: accountTreeOption({ open: "2017-01-01" }),
+          USTC: createAccountNodeConfig({ open: "2017-01-01" }),
         },
       },
       Web: {
-        AliPay: accountTreeOption({ open: "2017-01-01" }),
-        WeChatPay: accountTreeOption({
+        AliPay: createAccountNodeConfig({ open: "2017-01-01" }),
+        WeChatPay: createAccountNodeConfig({
           open: "2017-01-01",
           close: "2017-03-01",
         }),
@@ -33,7 +33,7 @@ it("test accountTreeBuilder", () => {
     US: {
       Bank: {
         Card: {
-          Visa: accountTreeOption({ open: "2017-01-01", currency: USD }),
+          Visa: createAccountNodeConfig({ open: "2017-01-01", currency: USD }),
         },
       },
     },
@@ -42,7 +42,7 @@ it("test accountTreeBuilder", () => {
   expect(assets.CN.Bank.BoC.C1234.defaultCurrency.symbol).toBe("CNY");
   expect(assets.US.Bank.Card.Visa.defaultCurrency.symbol).toBe("USD");
 
-  expect(beanCount.serializationAccounts(accountTreeToList(assets)))
+  expect(beanCount.serializationAccounts(flattenAccountHierarchy(assets)))
     .toMatchInlineSnapshot(`
       "2017-01-01 open Assets:CN:Bank:BoC:C1234 CNY
 

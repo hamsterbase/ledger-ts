@@ -1,7 +1,7 @@
 import { Ledger } from "../core/ledger";
 import { IPostings } from "../core/type";
 
-export function trBuilder(ledger: Ledger) {
+export function transactionBuilder(ledger: Ledger) {
   function tr(date: string, narration: string, ...postings: IPostings[]): void;
   function tr(
     date: string,

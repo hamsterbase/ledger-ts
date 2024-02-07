@@ -9,7 +9,7 @@ export class Ledger implements ILedger {
     this.transactions.push(transaction);
   }
 
-  price(price): void {
+  price(price: IPrice): void {
     this.prices.push(price);
   }
 }

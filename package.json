@@ -11,10 +11,12 @@
   },
   "scripts": {
     "build": "tsc",
+    "cov": "vitest --coverage",
     "prepublishOnly": "rm -rf lib && npm run build"
   },
   "devDependencies": {
-    "vitest": "^1.2.2",
-    "typescript": "^5.3.3"
+    "@vitest/coverage-v8": "^1.2.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
   }
 }
