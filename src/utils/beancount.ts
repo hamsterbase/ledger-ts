@@ -14,6 +14,8 @@ ${this.serializationCurrencies(ledger.currencies)}
 ${this.serializationAccounts(ledger.accounts)}
 
 ${this.serializationTransactions(ledger.transactions)}
+
+${this.serializationBalances(ledger.balances)}
     `.trim();
   }
 

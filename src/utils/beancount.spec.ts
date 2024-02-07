@@ -15,7 +15,7 @@ it("test serializationCurrencies", () => {
   `);
 });
 
-it("test serializationCurrencies", () => {
+it("test serializationBalances", () => {
   const CNY = Currency.create("2017-01-01", "CNY");
   const USD = Currency.create("2017-01-01", "USD");
   const account = new Account({
@@ -35,9 +35,13 @@ it("test serializationCurrencies", () => {
     account,
     amount: USD.amount(100),
   });
+
+  ledger.balance(account.balance("2017-01-06", 10));
+
   expect(beanCount.serializationBalances(ledger.balances))
     .toMatchInlineSnapshot(`
       "2017-01-02 balance Assets:Cash 100 CNY
-      2017-01-05 balance Assets:Cash 100 USD"
+      2017-01-05 balance Assets:Cash 100 USD
+      2017-01-06 balance Assets:Cash 10 CNY"
     `);
 });

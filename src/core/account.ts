@@ -1,4 +1,10 @@
-import { ICurrency, EAccountType, IAccount, IPostings } from "./type.js";
+import {
+  EAccountType,
+  IAccount,
+  IBalance,
+  ICurrency,
+  IPostings,
+} from "./type.js";
 
 export class Account implements IAccount {
   public namespace: string[];
@@ -17,6 +23,17 @@ export class Account implements IAccount {
 
   posting(value: number, currency?: ICurrency): IPostings {
     return {
+      account: this,
+      amount: {
+        value,
+        currency: currency ?? this.defaultCurrency,
+      },
+    };
+  }
+
+  balance(date: string, value: number, currency?: ICurrency): IBalance {
+    return {
+      date: new Date(date),
       account: this,
       amount: {
         value,
