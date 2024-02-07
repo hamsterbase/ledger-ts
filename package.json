@@ -5,7 +5,16 @@
   "repository": "git@github.com:hamsterbase/ledger-ts.git",
   "author": "monster <monster@hamsterbase.com>",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "rm -rf lib && npm run build"
+  },
   "devDependencies": {
+    "vitest": "^1.2.2",
     "typescript": "^5.3.3"
   }
 }
