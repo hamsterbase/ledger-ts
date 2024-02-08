@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2022", // Node.js 18
-    "lib": ["es2022"],
+    "lib": ["es2022", "DOM"],
     "module": "node16",
     "moduleResolution": "node16",
     "outDir": "dist",

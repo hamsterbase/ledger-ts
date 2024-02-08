@@ -12,3 +12,6 @@ export type {
 } from "./account-hierarchy.js";
 
 export { beanCount } from "./beancount.js";
+
+export { createCurrencies } from "./currency.js";
+export type { CurrencyConfig } from "./currency.js";
