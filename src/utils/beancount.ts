@@ -5,9 +5,14 @@ import {
   ILedger,
   IPostings,
   ITransaction,
+  Metadata,
 } from "../core/type.js";
 
 class BeanCount {
+  private indent(deep: number, str: string) {
+    return new Array(deep).fill(" ").join("") + str;
+  }
+
   serializationLedger(ledger: ILedger) {
     return `
 ${this.serializationCurrencies(ledger.currencies)}
@@ -24,12 +29,41 @@ ${this.serializationBalances(ledger.balances)}
     return currencies
       .map((p) => {
         let line = `${this.formateDate(p.date)} commodity ${p.symbol}`;
+        const metadata: Metadata = {};
         if (p.name) {
-          line += `\n  name: "${p.name}"`;
+          metadata.name = p.name;
         }
-        return line;
+        if (p.metadata) {
+          Object.assign(metadata, p.metadata);
+        }
+        return this.mergeLines(0, [
+          line,
+          this.serializationMetadata(1, metadata),
+        ]);
       })
       .join("\n\n");
+  }
+
+  private mergeLines(deep: number, lines: string[]): string {
+    return lines
+      .flat()
+      .filter((p) => !!p.trim())
+      .map((o) => this.indent(deep, o))
+      .join("\n");
+  }
+
+  private serializationMetadata(deep: number, metadata?: Metadata) {
+    if (!metadata) {
+      return "";
+    }
+    return this.mergeLines(
+      deep,
+      Object.keys(metadata)
+        .sort()
+        .map((key) => {
+          return `${key}: ${JSON.stringify(metadata[key])}`;
+        })
+    );
   }
 
   serializationAccounts(accounts: IAccount[]): string {

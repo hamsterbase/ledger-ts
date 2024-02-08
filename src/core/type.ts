@@ -6,6 +6,8 @@ export interface ICurrency {
   symbol: string;
 
   name?: string;
+
+  metadata?: Metadata;
 }
 
 export interface IAmount {
@@ -27,7 +29,7 @@ export interface IPostings {
   account: IAccount;
   amount: IAmount;
   as?: IPostingsAs;
-  metadata?: Record<string, string>;
+  metadata?: Metadata;
 }
 
 export interface IAccount {
@@ -45,7 +47,7 @@ export interface ITransaction {
   payee?: string;
   narration: string;
   postings: IPostings[];
-  metadata?: Record<string, string>;
+  metadata?: Metadata;
 }
 
 export interface IPrice {
@@ -53,7 +55,7 @@ export interface IPrice {
   date: Date;
   currency: ICurrency;
   amount: IAmount;
-  metadata?: Record<string, string>;
+  metadata?: Metadata;
 }
 
 export const enum EAccountType {
@@ -77,3 +79,5 @@ export interface ILedger {
   currencies: ICurrency[];
   balances: IBalance[];
 }
+
+export type Metadata = Record<string, string | number>;
