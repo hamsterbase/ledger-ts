@@ -1,27 +1,10 @@
-import { expect, it } from "vitest";
-import { createCurrencies } from "./currency.js";
 import dayjs from "dayjs";
+import { expect, it } from "vitest";
 import { beanCount } from "./beancount.js";
+import { createTestLedger } from "./create-test-ledger.js";
 
 it("test createCurrencies", () => {
-  const currencies = createCurrencies(
-    {
-      defaultDate: "2021-01-01",
-    },
-    [
-      "CNY",
-      "JPY",
-      [
-        "USD",
-        {
-          name: "Dollar",
-          date: "2022-01-01",
-          metadata: { a: 1, foo: "bar", name: "override" },
-        },
-      ],
-    ] as const
-  );
-
+  const { currencies } = createTestLedger();
   expect(dayjs(currencies.USD.date).format("YYYY-MM-DD")).toBe("2022-01-01");
   expect(
     beanCount.serializationCurrencies(Object.values(currencies)).split("\n")

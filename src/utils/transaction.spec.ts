@@ -5,7 +5,6 @@ import { transactionBuilder } from "./transaction.js";
 
 it("test price and cost", () => {
   const { currencies, ledger, assets } = createTestLedger();
-
   const { tr } = transactionBuilder(ledger);
   const jpAccount = assets.JP.Cash;
   const cnAccount = assets.CN.Bank.BoC.C1234;
