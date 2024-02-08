@@ -123,18 +123,39 @@ ${p.postings
 
   private formatPostingsPrice(postings: IPostings) {
     const amount = postings.amount;
-    if (!postings.as) {
-      return `${amount.value} ${amount.currency.symbol}`;
-    }
-    const as = postings.as;
-    switch (as.type) {
-      case "price": {
-        return `${amount.value} ${amount.currency.symbol} @ ${as.amount.value} ${as.amount.currency.symbol}`;
+
+    const price = [`${amount.value} ${amount.currency.symbol}`];
+
+    if (postings.held) {
+      const held = postings.held;
+      switch (held.type) {
+        case "price": {
+          price.push(`{ ${held.amount.value} ${held.amount.currency.symbol} }`);
+          break;
+        }
+        case "cost": {
+          price.push(
+            `{ # ${held.amount.value} ${held.amount.currency.symbol} }`
+          );
+          break;
+        }
       }
-      case "cost": {
-        return `${amount.value} ${amount.currency.symbol} @@ ${as.amount.value} ${as.amount.currency.symbol}`;
+    }
+
+    if (postings.as) {
+      const as = postings.as;
+      switch (as.type) {
+        case "price": {
+          price.push(`@ ${as.amount.value} ${as.amount.currency.symbol}`);
+          break;
+        }
+        case "cost": {
+          price.push(`@@ ${as.amount.value} ${as.amount.currency.symbol}`);
+          break;
+        }
       }
     }
+    return price.join(" ");
   }
 
   /**

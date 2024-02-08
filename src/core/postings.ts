@@ -3,7 +3,7 @@ import {
   IAmount,
   ICurrency,
   IPostings,
-  IPostingsAs,
+  IPostingsPrice,
   Metadata,
 } from "./type.js";
 
@@ -11,19 +11,46 @@ export class Postings implements IPostings {
   public account: IAccount;
   public amount: IAmount;
   public metadata?: Metadata;
-  public as?: IPostingsAs;
+  public as?: IPostingsPrice;
+  public held?: IPostingsPrice;
+
   constructor(option: IPostings) {
     this.account = option.account;
     this.amount = option.amount;
     this.metadata = option.metadata;
     this.as = option.as;
+    this.held = option.held;
   }
 
-  asPrice(value: number, currency: ICurrency): IPostings {
-    return new Postings({
-      account: this.account,
-      amount: this.amount,
-      metadata: this.metadata,
+  heldPrice(value: number, currency: ICurrency): Postings {
+    return this.clone((old) => ({
+      ...old,
+      held: {
+        type: "price",
+        amount: {
+          value,
+          currency,
+        },
+      },
+    }));
+  }
+
+  heldCost(value: number, currency: ICurrency): Postings {
+    return this.clone((old) => ({
+      ...old,
+      held: {
+        type: "cost",
+        amount: {
+          value,
+          currency,
+        },
+      },
+    }));
+  }
+
+  asPrice(value: number, currency: ICurrency): Postings {
+    return this.clone((old) => ({
+      ...old,
       as: {
         type: "price",
         amount: {
@@ -31,14 +58,12 @@ export class Postings implements IPostings {
           currency,
         },
       },
-    });
+    }));
   }
 
-  asCost(value: number, currency: ICurrency): IPostings {
-    return new Postings({
-      account: this.account,
-      amount: this.amount,
-      metadata: this.metadata,
+  asCost(value: number, currency: ICurrency): Postings {
+    return this.clone((old) => ({
+      ...old,
       as: {
         type: "cost",
         amount: {
@@ -46,18 +71,28 @@ export class Postings implements IPostings {
           currency,
         },
       },
-    });
+    }));
   }
 
   meta(key: string, value: string) {
-    return new Postings({
-      account: this.account,
-      amount: this.amount,
+    return this.clone((old) => ({
+      ...old,
       metadata: {
-        ...this.metadata,
+        ...old.metadata,
         [key]: value,
       },
-      as: this.as,
-    });
+    }));
+  }
+
+  private clone(fn: (p: IPostings) => IPostings): Postings {
+    return new Postings(
+      fn({
+        account: this.account,
+        amount: this.amount,
+        metadata: this.metadata,
+        as: this.as,
+        held: this.held,
+      })
+    );
   }
 }

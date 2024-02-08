@@ -42,4 +42,11 @@ tr(
   Expenses.Food.Alcool.posting(300)
 );
 
+tr(
+  "1970-01-01",
+  "CN to usd",
+  Assets.CN.Cash.posting(-700).asCost(100, USD),
+  Assets.Cash.posting(100)
+);
+
 console.log(utils.beanCount.serializationLedger(ledger));

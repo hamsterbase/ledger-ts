@@ -15,7 +15,7 @@ export interface IAmount {
   currency: ICurrency;
 }
 
-export type IPostingsAs =
+export type IPostingsPrice =
   | {
       type: "price";
       amount: IAmount;
@@ -28,8 +28,18 @@ export type IPostingsAs =
 export interface IPostings {
   account: IAccount;
   amount: IAmount;
-  as?: IPostingsAs;
   metadata?: Metadata;
+
+  /**
+   * price: 5 CNY { 20 JPY }
+   * cost:  5 CNY { # 100 JPY }
+   */
+  held?: IPostingsPrice;
+  /**
+   * price: 5 CNY @ 20 JPY
+   * cost:  5 CNY @@ 100 JPY
+   */
+  as?: IPostingsPrice;
 }
 
 export interface IAccount {
