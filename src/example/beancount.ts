@@ -1,8 +1,14 @@
-import { Currency, EAccountType, Ledger, utils } from "../src/index";
+import { EAccountType, Ledger, utils } from "../index.js";
 
-const USD = Currency.create("1970-01-01", "USD");
+const { USD, CNY } = utils.createCurrencies({ defaultDate: "1970-10-01" }, [
+  "USD",
+  "CNY",
+] as const);
 
 const Assets = utils.buildAccountHierarchy(USD, EAccountType.Assets, {
+  CN: {
+    Cash: utils.createAccountNodeConfig({ open: "1970-01-01", currency: CNY }),
+  },
   Cash: utils.createAccountNodeConfig({ open: "1970-01-01" }),
   UTrade: {
     Account: {
@@ -24,7 +30,7 @@ const ledger = new Ledger(
     ...utils.flattenAccountHierarchy(Assets),
     ...utils.flattenAccountHierarchy(Expenses),
   ],
-  [USD]
+  [USD, CNY]
 );
 
 const { tr } = utils.transactionBuilder(ledger);

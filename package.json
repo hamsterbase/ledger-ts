@@ -19,7 +19,7 @@
     "build": "tsc",
     "cov": "vitest --coverage",
     "prepublishOnly": "rm -rf lib && npm run build",
-    "example:beancount": "tsx example/beancount.ts"
+    "example:beancount": "tsx src/example/beancount.ts"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^1.2.2",
