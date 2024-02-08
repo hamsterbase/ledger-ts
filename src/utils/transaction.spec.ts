@@ -1,26 +1,15 @@
 import { expect, it } from "vitest";
-import { Account, Currency, EAccountType, Ledger } from "../index.js";
-import { transactionBuilder } from "./transaction.js";
 import { beanCount } from "./beancount.js";
+import { createTestLedger } from "./create-test-ledger.js";
+import { transactionBuilder } from "./transaction.js";
 
-it("add test for posting", () => {
-  const CNY = Currency.create("2017-01-01", "CNY");
-  const JPY = Currency.create("2017-01-01", "JPY");
-  const cnAccount = new Account({
-    namespace: ["Cash"],
-    type: EAccountType.Assets,
-    defaultCurrency: CNY,
-    openDate: new Date("2017-01-01"),
-  });
-  const jpAccount = new Account({
-    namespace: ["Bank"],
-    type: EAccountType.Assets,
-    defaultCurrency: JPY,
-    openDate: new Date("2017-01-01"),
-  });
-  const ledger = new Ledger([cnAccount, jpAccount], [CNY]);
+it("test price and cost", () => {
+  const { currencies, ledger, assets } = createTestLedger();
 
   const { tr } = transactionBuilder(ledger);
+  const jpAccount = assets.JP.Cash;
+  const cnAccount = assets.CN.Bank.BoC.C1234;
+  const JPY = currencies.JPY;
 
   tr(
     "2021-01-01",
@@ -60,23 +49,23 @@ it("add test for posting", () => {
   expect(beanCount.serializationTransactions(ledger.transactions))
     .toMatchInlineSnapshot(`
       "2021-01-01 * "first"
-        Assets:Bank 100 JPY
-        Assets:Cash 5 CNY @@ 100 JPY
+        Assets:JP:Cash 100 JPY
+        Assets:CN:Bank:BoC:C1234 5 CNY @@ 100 JPY
 
       2021-01-01 * "first"
-        Assets:Bank 100 JPY
-        Assets:Cash 5 CNY @ 20 JPY
+        Assets:JP:Cash 100 JPY
+        Assets:CN:Bank:BoC:C1234 5 CNY @ 20 JPY
 
       2021-01-01 * "first"
-        Assets:Bank 100 JPY
-        Assets:Cash 5 CNY { 20 JPY }
+        Assets:JP:Cash 100 JPY
+        Assets:CN:Bank:BoC:C1234 5 CNY { 20 JPY }
 
       2021-01-01 * "first"
-        Assets:Bank 100 JPY
-        Assets:Cash 5 CNY { # 100 JPY }
+        Assets:JP:Cash 100 JPY
+        Assets:CN:Bank:BoC:C1234 5 CNY { # 100 JPY }
 
       2021-01-01 * "first"
-        Assets:Bank 100 JPY
-        Assets:Cash 5 CNY { 20 JPY } @@ 100 JPY"
+        Assets:JP:Cash 100 JPY
+        Assets:CN:Bank:BoC:C1234 5 CNY { 20 JPY } @@ 100 JPY"
     `);
 });
