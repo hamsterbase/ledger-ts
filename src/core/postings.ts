@@ -4,12 +4,13 @@ import {
   ICurrency,
   IPostings,
   IPostingsAs,
+  Metadata,
 } from "./type.js";
 
 export class Postings implements IPostings {
   public account: IAccount;
   public amount: IAmount;
-  public metadata?: Record<string, string>;
+  public metadata?: Metadata;
   public as?: IPostingsAs;
   constructor(option: IPostings) {
     this.account = option.account;
