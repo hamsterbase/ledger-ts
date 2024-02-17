@@ -1,6 +1,6 @@
 {
   "name": "@hamsterbase/ledger-ts",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "type": "module",
   "main": "dist/index.js",
   "repository": "git@github.com:hamsterbase/ledger-ts.git",
@@ -10,7 +10,6 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-
   "scripts": {
     "build": "tsc",
     "cov": "vitest --coverage",
