@@ -10,11 +10,7 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js"
-    }
-  },
+
   "scripts": {
     "build": "tsc",
     "cov": "vitest --coverage",

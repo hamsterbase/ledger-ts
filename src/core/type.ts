@@ -68,7 +68,7 @@ export interface IPrice {
   metadata?: Metadata;
 }
 
-export const enum EAccountType {
+export enum EAccountType {
   Assets = "Assets",
   Expenses = "Expenses",
   Income = "Income",
