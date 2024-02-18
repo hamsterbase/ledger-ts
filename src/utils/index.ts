@@ -1,4 +1,4 @@
-export { transactionBuilder } from "./transaction.js";
+export { transactionBuilder, mergeTransactions } from "./transaction.js";
 
 export {
   buildAccountHierarchy,
