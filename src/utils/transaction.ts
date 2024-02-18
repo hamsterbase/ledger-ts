@@ -38,10 +38,12 @@ export function transactionBuilder(ledger: Ledger) {
 }
 
 export function mergeTransactions(baseTransaction: Partial<ITransaction>) {
-  return (additionalTransaction: Partial<ITransaction>) => {
+  return (additionalTransaction: Partial<ITransaction>): ITransaction => {
     return {
+      type: "transaction",
+      flag: "*",
       ...baseTransaction,
       ...additionalTransaction,
-    };
+    } as ITransaction;
   };
 }

@@ -17,12 +17,14 @@
     "example:beancount": "tsx src/example/beancount.ts"
   },
   "devDependencies": {
-    "dayjs": "^1.11.10",
-    "esbuild": "^0.20.0",
     "@types/node": "^20.11.19",
     "@vitest/coverage-v8": "^1.2.2",
+    "dayjs": "^1.11.10",
+    "esbuild": "^0.20.0",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.2"
-  }
+    "vitest": "^1.2.2",
+    "decimal.js": "^10.4.3"
+  },
+  "dependencies": {}
 }

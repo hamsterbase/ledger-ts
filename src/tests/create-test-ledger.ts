@@ -33,6 +33,9 @@ export const createTestLedger = () => {
   });
 
   const assets = buildAccountHierarchy(currencies.CNY, EAccountType.Assets, {
+    Prepaid: createAccountNodeConfig({
+      open: "2017-01-01",
+    }),
     Transfer: createAccountNodeConfig({
       open: "2017-01-01",
       currency: [currencies.CNY, currencies.JPY],
@@ -72,8 +75,23 @@ export const createTestLedger = () => {
     },
   });
 
+  const expenses = buildAccountHierarchy(
+    currencies.CNY,
+    EAccountType.Expenses,
+    {
+      XGP: createAccountNodeConfig({
+        open: "2017-01-01",
+        currency: [currencies.CNY],
+      }),
+    }
+  );
+
   const ledger = new Ledger(
-    [flattenAccountHierarchy(assets), flattenAccountHierarchy(Equity)].flat(),
+    [
+      flattenAccountHierarchy(expenses),
+      flattenAccountHierarchy(assets),
+      flattenAccountHierarchy(Equity),
+    ].flat(),
     Object.values(currencies)
   );
 
@@ -81,6 +99,7 @@ export const createTestLedger = () => {
   return {
     currencies,
     assets,
+    expenses,
     ledger,
     tr,
   };
