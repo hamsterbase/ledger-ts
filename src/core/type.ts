@@ -28,7 +28,7 @@ export type IPostingsPrice =
 export interface IPostings {
   account: IAccount;
   amount: IAmount;
-  metadata?: Metadata;
+  metadata?: Metadata | null;
 
   /**
    * price: 5 CNY { 20 JPY }

@@ -13,8 +13,8 @@ export class Ledger implements ILedger {
   public balances: IBalance[] = [];
   constructor(public accounts: IAccount[], public currencies: ICurrency[]) {}
 
-  transaction(transaction: ITransaction): void {
-    this.transactions.push(transaction);
+  transaction(...transaction: ITransaction[]): void {
+    this.transactions = this.transactions.concat(transaction);
   }
 
   price(price: IPrice): void {

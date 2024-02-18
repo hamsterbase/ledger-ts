@@ -45,7 +45,7 @@ ${this.serializationBalances(ledger.balances)}
       .join("\n\n");
   }
 
-  private mergeLines(deep: number, lines: string[]): string {
+  private mergeLines(deep: number, lines: string[] | Array<string[]>): string {
     return lines
       .flat()
       .filter((p) => !!p.trim())
@@ -53,7 +53,7 @@ ${this.serializationBalances(ledger.balances)}
       .join("\n");
   }
 
-  private serializationMetadata(deep: number, metadata?: Metadata) {
+  private serializationMetadata(deep: number, metadata?: Metadata | null) {
     if (!metadata) {
       return "";
     }
@@ -120,13 +120,20 @@ ${this.formateDate(p.date)} balance ${this.accountName(p.account)} ${
         } else {
           payeeAndNarration = `"${p.narration}"`;
         }
-        let res = `
-${this.formateDate(p.date)} ${p.flag} ${payeeAndNarration}
-${p.postings
-  .map((o) => {
-    return `  ${this.accountName(o.account)} ${this.formatPostingsPrice(o)}`;
-  })
-  .join("\n")}`.trim();
+        const res = this.mergeLines(0, [
+          `${this.formateDate(p.date)} ${p.flag} ${payeeAndNarration}`,
+          this.serializationMetadata(2, p.metadata),
+          this.mergeLines(
+            2,
+            p.postings.map((o) => {
+              return [
+                `${this.accountName(o.account)} ${this.formatPostingsPrice(o)}`,
+                this.serializationMetadata(2, o.metadata),
+              ];
+            })
+          ),
+        ]);
+
         return res;
       })
       .join("\n\n");

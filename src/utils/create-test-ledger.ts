@@ -5,6 +5,7 @@ import {
   flattenAccountHierarchy,
 } from "./account-hierarchy.js";
 import { createCurrencies } from "./currency.js";
+import { transactionBuilder } from "./transaction.js";
 
 export const createTestLedger = () => {
   const currencies = createCurrencies(
@@ -33,6 +34,10 @@ export const createTestLedger = () => {
   });
 
   const assets = buildAccountHierarchy(currencies.CNY, EAccountType.Assets, {
+    Transfer: createAccountNodeConfig({
+      open: "2017-01-01",
+      currency: [currencies.CNY, currencies.JPY],
+    }),
     CN: {
       Bank: {
         BoC: {
@@ -73,9 +78,11 @@ export const createTestLedger = () => {
     Object.values(currencies)
   );
 
+  const { tr } = transactionBuilder(ledger);
   return {
     currencies,
     assets,
     ledger,
+    tr,
   };
 };
