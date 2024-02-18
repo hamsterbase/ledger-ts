@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
   IAccount,
   IBalance,
@@ -90,12 +91,20 @@ ${this.serializationBalances(ledger.balances)}
   serializationBalances(balances: IBalance[]): string {
     return balances
       .map((p) => {
+        let pad = "";
+        if (p.pad) {
+          const lastDay = dayjs(p.date).subtract(1, "day").toDate();
+          pad = `${this.formateDate(lastDay)} pad ${this.accountName(
+            p.account
+          )} ${this.accountName(p.pad)}`;
+        }
         return `
+${pad}
 ${this.formateDate(p.date)} balance ${this.accountName(p.account)} ${
           p.amount.value
         } ${p.amount.currency.symbol}`.trim();
       })
-      .join("\n");
+      .join("\n\n");
   }
 
   private accountName(account: IAccount): string {

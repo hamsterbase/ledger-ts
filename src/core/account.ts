@@ -1,3 +1,4 @@
+import { Balance } from "./balance.js";
 import { Postings } from "./postings.js";
 import { EAccountType, IAccount, IBalance, ICurrency } from "./type.js";
 
@@ -29,15 +30,15 @@ export class Account implements IAccount {
     });
   }
 
-  balance(date: string, value: number, currency?: ICurrency): IBalance {
-    return {
+  balance(date: string, value: number, currency?: ICurrency): Balance {
+    return new Balance({
       date: new Date(date),
       account: this,
       amount: {
         value,
         currency: currency ?? this.defaultCurrency,
       },
-    };
+    });
   }
 
   public get defaultCurrency(): ICurrency {

@@ -1,4 +1,4 @@
-option "operating_currency" "CNY";
+option "operating_currency" "CNY"
 
 2021-01-01 commodity CNY
 

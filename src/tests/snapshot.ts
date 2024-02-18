@@ -8,7 +8,7 @@ export function assertSnapshot(ledger: Ledger, name: string) {
 
   beanCount.serializationLedger(ledger);
   const snapshot = [
-    `option "operating_currency" "${ledger.currencies[0].symbol}";\n`,
+    `option "operating_currency" "${ledger.currencies[0].symbol}"\n`,
     beanCount.serializationLedger(ledger),
   ].join("\n");
 

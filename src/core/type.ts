@@ -80,6 +80,7 @@ export interface IBalance {
   date: Date;
   amount: IAmount;
   account: IAccount;
+  pad?: IAccount;
 }
 
 export interface ILedger {
