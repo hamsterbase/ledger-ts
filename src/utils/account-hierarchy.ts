@@ -4,7 +4,7 @@ import { EAccountType, ICurrency } from "../core/type.js";
 export interface AccountNodeConfig {
   open: string;
   close?: string;
-  currency?: ICurrency;
+  currency?: ICurrency | ICurrency[];
 }
 
 export type AccountHierarchy = {
@@ -45,10 +45,18 @@ export function buildAccountHierarchy<T extends AccountHierarchy>(
   Object.keys(tree).forEach((key) => {
     const option = tree[key];
     if (isAccountNodeConfig(option)) {
+      let currencies: ICurrency[];
+      if (!option.currency) {
+        currencies = [defaultCurrency];
+      } else if (!Array.isArray(option.currency)) {
+        currencies = [option.currency];
+      } else {
+        currencies = option.currency;
+      }
       res[key] = new Account({
         namespace: prefix.concat(key),
         type,
-        defaultCurrency: option.currency ?? defaultCurrency,
+        currencies,
         openDate: new Date(option.open),
         closeDate: option.close ? new Date(option.close) : undefined,
       });

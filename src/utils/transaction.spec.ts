@@ -1,5 +1,5 @@
-import { expect, it } from "vitest";
-import { beanCount } from "./beancount.js";
+import { it } from "vitest";
+import { assertSnapshot } from "../tests/snapshot.js";
 import { createTestLedger } from "./create-test-ledger.js";
 import { transactionBuilder } from "./transaction.js";
 
@@ -14,27 +14,27 @@ it("test price and cost", () => {
     "2021-01-01",
     "first",
     jpAccount.posting(100),
-    cnAccount.posting(5).asCost(100, JPY)
+    cnAccount.posting(-5).asCost(100, JPY)
   );
 
   tr(
     "2021-01-01",
     "first",
     jpAccount.posting(100),
-    cnAccount.posting(5).asPrice(20, JPY)
+    cnAccount.posting(-5).asPrice(20, JPY)
   );
 
   tr(
     "2021-01-01",
     "first",
     jpAccount.posting(100),
-    cnAccount.posting(5).heldPrice(20, JPY)
+    cnAccount.posting(-5).heldPrice(20, JPY)
   );
 
   tr(
     "2021-01-01",
     "first",
-    jpAccount.posting(100),
+    jpAccount.posting(-100),
     cnAccount.posting(5).heldCost(100, JPY)
   );
 
@@ -42,29 +42,8 @@ it("test price and cost", () => {
     "2021-01-01",
     "first",
     jpAccount.posting(100),
-    cnAccount.posting(5).heldPrice(20, JPY).asCost(100, JPY)
+    cnAccount.posting(-5).heldPrice(20, JPY).asCost(100, JPY)
   );
 
-  expect(beanCount.serializationTransactions(ledger.transactions))
-    .toMatchInlineSnapshot(`
-      "2021-01-01 * "first"
-        Assets:JP:Cash 100 JPY
-        Assets:CN:Bank:BoC:C1234 5 CNY @@ 100 JPY
-
-      2021-01-01 * "first"
-        Assets:JP:Cash 100 JPY
-        Assets:CN:Bank:BoC:C1234 5 CNY @ 20 JPY
-
-      2021-01-01 * "first"
-        Assets:JP:Cash 100 JPY
-        Assets:CN:Bank:BoC:C1234 5 CNY { 20 JPY }
-
-      2021-01-01 * "first"
-        Assets:JP:Cash 100 JPY
-        Assets:CN:Bank:BoC:C1234 5 CNY { # 100 JPY }
-
-      2021-01-01 * "first"
-        Assets:JP:Cash 100 JPY
-        Assets:CN:Bank:BoC:C1234 5 CNY { 20 JPY } @@ 100 JPY"
-    `);
+  assertSnapshot(ledger, "transaction");
 });

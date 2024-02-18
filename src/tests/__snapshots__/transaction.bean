@@ -1,0 +1,44 @@
+option "operating_currency" "CNY";
+
+2021-01-01 commodity CNY
+
+2021-01-01 commodity JPY
+
+2022-01-01 commodity USD
+ foo: "bar"
+ name: "override"
+
+2017-01-01 open Assets:CN:Bank:BoC:C1234 CNY
+
+2017-01-01 open Assets:CN:Bank:Card:USTC CNY
+
+2017-01-01 open Assets:CN:Web:AliPay CNY
+
+2017-01-01 open Assets:CN:Web:WeChatPay CNY
+2017-01-01 close Assets:CN:Web:WeChatPay
+
+2017-01-01 open Assets:JP:Cash JPY
+
+2017-01-01 open Assets:US:Bank:Card:Visa USD
+
+2017-01-01 open Equity:OpenBalance CNY,JPY
+
+2021-01-01 * "first"
+  Assets:JP:Cash 100 JPY
+  Assets:CN:Bank:BoC:C1234 -5 CNY @@ 100 JPY
+
+2021-01-01 * "first"
+  Assets:JP:Cash 100 JPY
+  Assets:CN:Bank:BoC:C1234 -5 CNY @ 20 JPY
+
+2021-01-01 * "first"
+  Assets:JP:Cash 100 JPY
+  Assets:CN:Bank:BoC:C1234 -5 CNY { 20 JPY }
+
+2021-01-01 * "first"
+  Assets:JP:Cash -100 JPY
+  Assets:CN:Bank:BoC:C1234 5 CNY { # 100 JPY }
+
+2021-01-01 * "first"
+  Assets:JP:Cash 100 JPY
+  Assets:CN:Bank:BoC:C1234 -5 CNY { 20 JPY } @@ 100 JPY

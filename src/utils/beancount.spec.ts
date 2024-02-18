@@ -9,7 +9,7 @@ it("test serializationBalances", () => {
   const account = new Account({
     namespace: ["Cash"],
     type: EAccountType.Assets,
-    defaultCurrency: CNY,
+    currencies: [CNY],
     openDate: new Date("2017-01-01"),
   });
   const ledger = new Ledger([account], [CNY]);

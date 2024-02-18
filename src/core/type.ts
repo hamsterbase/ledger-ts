@@ -45,7 +45,7 @@ export interface IPostings {
 export interface IAccount {
   namespace: string[];
   type: EAccountType;
-  defaultCurrency: ICurrency;
+  currencies: ICurrency[];
   openDate: Date;
   closeDate?: Date;
 }

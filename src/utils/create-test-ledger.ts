@@ -19,11 +19,18 @@ export const createTestLedger = () => {
         {
           name: "Dollar",
           date: "2022-01-01",
-          metadata: { a: 1, foo: "bar", name: "override" },
+          metadata: { foo: "bar", name: "override" },
         },
       ],
     ] as const
   );
+
+  const Equity = buildAccountHierarchy(currencies.CNY, EAccountType.Equity, {
+    OpenBalance: createAccountNodeConfig({
+      open: "2017-01-01",
+      currency: [currencies.CNY, currencies.JPY],
+    }),
+  });
 
   const assets = buildAccountHierarchy(currencies.CNY, EAccountType.Assets, {
     CN: {
@@ -62,7 +69,7 @@ export const createTestLedger = () => {
   });
 
   const ledger = new Ledger(
-    flattenAccountHierarchy(assets),
+    [flattenAccountHierarchy(assets), flattenAccountHierarchy(Equity)].flat(),
     Object.values(currencies)
   );
 

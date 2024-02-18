@@ -73,12 +73,14 @@ ${this.serializationBalances(ledger.balances)}
         if (p.openDate) {
           res += `${this.formateDate(p.openDate)} open ${
             p.type
-          }:${p.namespace.join(":")} ${p.defaultCurrency.symbol}`;
+          }:${p.namespace.join(":")} ${p.currencies
+            .map((o) => o.symbol)
+            .join(",")}`;
         }
         if (p.closeDate) {
           res += `\n${this.formateDate(p.openDate)} close ${
             p.type
-          }:${p.namespace.join(":")} ${p.defaultCurrency.symbol}`;
+          }:${p.namespace.join(":")}`;
         }
         return res;
       })
