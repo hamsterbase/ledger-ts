@@ -1,6 +1,6 @@
 {
   "name": "@hamsterbase/ledger-ts",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "type": "module",
   "main": "dist/index.js",
   "repository": "git@github.com:hamsterbase/ledger-ts.git",
@@ -20,11 +20,11 @@
     "@types/node": "^20.11.19",
     "@vitest/coverage-v8": "^1.2.2",
     "dayjs": "^1.11.10",
+    "decimal.js": "^10.4.3",
     "esbuild": "^0.20.0",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.2",
-    "decimal.js": "^10.4.3"
+    "vitest": "^1.2.2"
   },
   "dependencies": {}
 }
