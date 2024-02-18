@@ -1,4 +1,4 @@
-export { transactionBuilder, mergeTransactions } from "./transaction.js";
+export { mergeTransactions, transactionBuilder } from "./transaction.js";
 
 export {
   buildAccountHierarchy,
@@ -15,3 +15,5 @@ export { beanCount } from "./beancount.js";
 
 export { createCurrencies } from "./currency.js";
 export type { CurrencyConfig } from "./currency.js";
+
+export { settle } from "./settle.js";
