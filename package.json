@@ -1,6 +1,6 @@
 {
   "name": "@hamsterbase/ledger-ts",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "type": "module",
   "main": "dist/index.js",
   "repository": "git@github.com:hamsterbase/ledger-ts.git",
