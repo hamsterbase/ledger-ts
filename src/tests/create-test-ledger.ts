@@ -3,9 +3,9 @@ import {
   buildAccountHierarchy,
   createAccountNodeConfig,
   flattenAccountHierarchy,
-} from "./account-hierarchy.js";
-import { createCurrencies } from "./currency.js";
-import { transactionBuilder } from "./transaction.js";
+} from "../utils/account-hierarchy.js";
+import { createCurrencies } from "../utils/currency.js";
+import { transactionBuilder } from "../utils/transaction.js";
 
 export const createTestLedger = () => {
   const currencies = createCurrencies(
@@ -18,9 +18,8 @@ export const createTestLedger = () => {
       [
         "USD",
         {
-          name: "Dollar",
           date: "2022-01-01",
-          metadata: { foo: "bar", name: "override" },
+          metadata: { foo: "bar", name: "Dollar" },
         },
       ],
     ] as const

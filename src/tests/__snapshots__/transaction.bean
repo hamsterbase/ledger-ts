@@ -6,7 +6,7 @@ option "operating_currency" "CNY"
 
 2022-01-01 commodity USD
  foo: "bar"
- name: "override"
+ name: "Dollar"
 
 2017-01-01 open Assets:Transfer CNY,JPY
 

@@ -1,6 +1,6 @@
 import { it } from "vitest";
 import { assertSnapshot } from "../tests/snapshot.js";
-import { createTestLedger } from "./create-test-ledger.js";
+import { createTestLedger } from "../tests/create-test-ledger.js";
 import { transactionBuilder } from "./transaction.js";
 
 it("test price and cost", () => {

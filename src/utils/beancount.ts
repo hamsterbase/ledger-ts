@@ -30,16 +30,9 @@ ${this.serializationBalances(ledger.balances)}
     return currencies
       .map((p) => {
         let line = `${this.formateDate(p.date)} commodity ${p.symbol}`;
-        const metadata: Metadata = {};
-        if (p.name) {
-          metadata.name = p.name;
-        }
-        if (p.metadata) {
-          Object.assign(metadata, p.metadata);
-        }
         return this.mergeLines(0, [
           line,
-          this.serializationMetadata(1, metadata),
+          this.serializationMetadata(1, p.metadata),
         ]);
       })
       .join("\n\n");

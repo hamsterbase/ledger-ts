@@ -5,8 +5,6 @@ export interface ICurrency {
    */
   symbol: string;
 
-  name?: string;
-
   metadata?: Metadata;
 }
 

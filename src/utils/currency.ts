@@ -25,7 +25,6 @@ type ConvertArrayToObject<T> = {
 
 interface CurrencyOption {
   date?: string;
-  name?: string;
   metadata?: Metadata;
 }
 
@@ -54,7 +53,6 @@ export function createCurrencies<T extends CurrencyConfig>(
           ? new Date(currencyOption.date)
           : new Date(option.defaultDate),
         symbol,
-        name: currencyOption.name,
         metadata: currencyOption.metadata,
       });
     }
