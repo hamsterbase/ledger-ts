@@ -1,5 +1,5 @@
 import { Ledger } from "../core/ledger.js";
-import { IPostings } from "../core/type.js";
+import { IPostings, ITransaction } from "../core/type.js";
 
 export function transactionBuilder(ledger: Ledger) {
   function tr(date: string, narration: string, ...postings: IPostings[]): void;
@@ -34,5 +34,14 @@ export function transactionBuilder(ledger: Ledger) {
 
   return {
     tr,
+  };
+}
+
+export function mergeTransactions(baseTransaction: Partial<ITransaction>) {
+  return (additionalTransaction: Partial<ITransaction>) => {
+    return {
+      ...baseTransaction,
+      ...additionalTransaction,
+    };
   };
 }
