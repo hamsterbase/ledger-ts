@@ -8,6 +8,10 @@ option "operating_currency" "CNY"
  foo: "bar"
  name: "Dollar"
 
+2017-01-01 open Expenses:XGP CNY
+
+2017-01-01 open Assets:Prepaid CNY
+
 2017-01-01 open Assets:Transfer CNY,JPY
 
 2017-01-01 open Assets:CN:Bank:BoC:C1234 CNY
