@@ -11,19 +11,18 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc && esbuild src/index.ts --bundle --outfile=dist/index.js",
     "cov": "vitest --coverage",
-    "prepublishOnly": "rm -rf lib && npm run build",
+    "prepublishOnly": "npm run build",
     "example:beancount": "tsx src/example/beancount.ts"
   },
   "devDependencies": {
+    "dayjs": "^1.11.10",
+    "esbuild": "^0.20.0",
+    "@types/node": "^20.11.19",
     "@vitest/coverage-v8": "^1.2.2",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.2",
-    "@types/node": "^20.11.19"
-  },
-  "dependencies": {
-    "dayjs": "^1.11.10"
+    "vitest": "^1.2.2"
   }
 }
