@@ -8,12 +8,6 @@ option "operating_currency" "CNY"
  foo: "bar"
  name: "Dollar"
 
-2017-01-01 open Expenses:XGP CNY
-
-2017-01-01 open Assets:Prepaid CNY
-
-2017-01-01 open Assets:Transfer CNY,JPY
-
 2017-01-01 open Assets:CN:Bank:BoC:C1234 CNY
 
 2017-01-01 open Assets:CN:Bank:Card:USTC CNY
@@ -25,9 +19,15 @@ option "operating_currency" "CNY"
 
 2017-01-01 open Assets:JP:Cash JPY
 
+2017-01-01 open Assets:Prepaid CNY
+
+2017-01-01 open Assets:Transfer CNY,JPY
+
 2017-01-01 open Assets:US:Bank:Card:Visa USD
 
 2017-01-01 open Equity:OpenBalance CNY,JPY
+
+2017-01-01 open Expenses:XGP CNY
 
 2021-01-01 * "first"
   Assets:JP:Cash 100 JPY
@@ -42,8 +42,8 @@ option "operating_currency" "CNY"
   Assets:CN:Bank:BoC:C1234 -5 CNY { 20 JPY }
 
 2021-01-01 * "first"
-  Assets:JP:Cash -100 JPY
   Assets:CN:Bank:BoC:C1234 5 CNY { # 100 JPY }
+  Assets:JP:Cash -100 JPY
 
 2021-01-01 * "first"
   Assets:JP:Cash 100 JPY

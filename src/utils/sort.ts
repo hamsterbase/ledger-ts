@@ -7,6 +7,10 @@ export function mergeSortResult(list: number[]) {
   return 0;
 }
 
+export function compareDate(a: Date, b: Date): number {
+  return a.getTime() - b.getTime();
+}
+
 export function compareString(a?: string | null, b?: string | null): number {
   if (typeof a !== "string" && typeof b !== "string") {
     return String(a).localeCompare(String(b));

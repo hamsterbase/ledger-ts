@@ -8,6 +8,7 @@ import {
   ITransaction,
   Metadata,
 } from "../core/type.js";
+import { compareDate, compareString, mergeSortResult } from "./sort.js";
 
 class BeanCount {
   private indent(deep: number, str: string) {
@@ -62,6 +63,12 @@ ${this.serializationBalances(ledger.balances)}
 
   serializationAccounts(accounts: IAccount[]): string {
     return accounts
+      .sort((a, b) => {
+        return mergeSortResult([
+          compareDate(a.openDate, b.openDate),
+          compareString(this.accountName(a), this.accountName(b)),
+        ]);
+      })
       .map((p) => {
         let res = "";
         if (p.openDate) {
@@ -83,6 +90,15 @@ ${this.serializationBalances(ledger.balances)}
 
   serializationBalances(balances: IBalance[]): string {
     return balances
+      .sort((a, b) => {
+        return mergeSortResult([
+          compareDate(a.date, b.date),
+          compareString(
+            this.accountName(a.account),
+            this.accountName(b.account)
+          ),
+        ]);
+      })
       .map((p) => {
         let pad = "";
         if (p.pad) {
@@ -106,6 +122,13 @@ ${this.formateDate(p.date)} balance ${this.accountName(p.account)} ${
 
   serializationTransactions(transactions: ITransaction[]): string {
     return transactions
+      .sort((a, b) => {
+        return mergeSortResult([
+          compareDate(a.date, b.date),
+          compareString(a.payee, b.payee),
+          compareString(a.narration, b.narration),
+        ]);
+      })
       .map((p) => {
         let payeeAndNarration;
         if (p.payee) {
@@ -118,12 +141,18 @@ ${this.formateDate(p.date)} balance ${this.accountName(p.account)} ${
           this.serializationMetadata(2, p.metadata),
           this.mergeLines(
             2,
-            p.postings.map((o) => {
-              return [
-                `${this.accountName(o.account)} ${this.formatPostingsPrice(o)}`,
-                this.serializationMetadata(2, o.metadata),
-              ];
-            })
+            p.postings
+              .sort((a, b) => {
+                return b.amount.value - a.amount.value;
+              })
+              .map((o) => {
+                return [
+                  `${this.accountName(o.account)} ${this.formatPostingsPrice(
+                    o
+                  )}`,
+                  this.serializationMetadata(2, o.metadata),
+                ];
+              })
           ),
         ]);
 
