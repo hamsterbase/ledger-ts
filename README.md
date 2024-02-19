@@ -25,7 +25,68 @@ npm install ledger-ts
 
 ## Usage
 
-You can view examples in the [example](./src/example) directory.
+```ts
+import { EAccountType, Ledger, utils } from "@hamsterbase/ledger-ts";
+
+// setup currencies
+const currencies = utils.createCurrencies(
+  {
+    defaultDate: "2021-01-01",
+  },
+  ["USD", "IBM"] as const
+);
+
+// setup accounts
+const assets = utils.buildAccountHierarchy(
+  currencies.USD,
+  EAccountType.Assets,
+  {
+    US: {
+      ETrade: {
+        Cash: utils.createAccountNodeConfig({
+          open: "2017-01-01",
+        }),
+        IBM: utils.createAccountNodeConfig({
+          open: "2017-01-01",
+          currency: currencies.IBM,
+        }),
+      },
+    },
+  }
+);
+
+// create a ledger and add accounts, currencies
+const ledger = new Ledger(
+  [utils.flattenAccountHierarchy(assets)].flat(),
+  Object.values(currencies)
+);
+const { tr } = utils.transactionBuilder(ledger);
+
+// add a transaction
+tr(
+  "2024-02-16",
+  "Buying some IBM",
+  assets.US.ETrade.IBM.posting(100).heldPrice(160, currencies.USD),
+  assets.US.ETrade.Cash.posting(-16000)
+);
+
+// output the ledger
+console.log(utils.beanCount.serializationLedger(ledger));
+```
+
+```
+2021-01-01 commodity USD
+
+2021-01-01 commodity IBM
+
+2017-01-01 open Assets:US:ETrade:Cash USD
+
+2017-01-01 open Assets:US:ETrade:IBM IBM
+
+2024-02-16 * "Buying some IBM"
+  Assets:US:ETrade:IBM 100 IBM { 160 USD }
+  Assets:US:ETrade:Cash -16000 USD
+```
 
 ## License
 
