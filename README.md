@@ -20,7 +20,7 @@ So, I created ledger-ts. To put it in an analogy, ledger-ts is a more advanced a
 ## Installation
 
 ```bash
-npm install ledger-ts
+npm install @hamsterbase/ledger-ts
 ```
 
 ## Usage
