@@ -1,4 +1,4 @@
-import { IAmount, ICurrency, Metadata } from "./type.js";
+import { ICurrency, Metadata } from "./type.js";
 
 export class Currency implements ICurrency {
   public symbol: string;

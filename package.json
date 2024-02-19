@@ -11,7 +11,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsc && esbuild src/index.ts --bundle --outfile=dist/index.js",
+    "build": "rm -rf dist && tsc && esbuild src/index.ts --bundle --outfile=dist/index.js --format=esm",
     "cov": "vitest --coverage",
     "prepublishOnly": "npm run build",
     "example:beancount": "tsx src/example/beancount.ts"
