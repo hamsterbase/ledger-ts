@@ -23,7 +23,7 @@ So, I created ledger-ts. To put it in an analogy, ledger-ts is a more advanced a
 npm install @hamsterbase/ledger-ts
 ```
 
-## Usage
+## Example
 
 ```ts
 import { EAccountType, Ledger, utils } from "@hamsterbase/ledger-ts";
