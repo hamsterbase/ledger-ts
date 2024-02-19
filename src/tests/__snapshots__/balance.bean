@@ -2,13 +2,13 @@ option "operating_currency" "CNY"
 
 2017-01-01 commodity CNY
 
-2017-01-01 open Assets:Cash CNY
+2017-01-01 open Assets:Cash                                                          CNY
 
-2017-01-01 open Equity:OpenBalance CNY
+2017-01-01 open Equity:OpenBalance                                                   CNY
 
 
 
-2017-01-05 pad Assets:Cash Equity:OpenBalance
-2017-01-06 balance Assets:Cash 10 CNY
+2017-01-05 pad     Assets:Cash Equity:OpenBalance
+2017-01-06 balance Assets:Cash                                                            10 CNY
 
-2017-01-07 balance Assets:Cash 10 CNY
+2017-01-07 balance Assets:Cash                                                            10 CNY

@@ -8,87 +8,87 @@ option "operating_currency" "CNY"
  foo: "bar"
  name: "Dollar"
 
-2017-01-01 open Assets:CN:Bank:BoC:C1234 CNY
+2017-01-01 open Assets:CN:Bank:BoC:C1234                                             CNY
 
-2017-01-01 open Assets:CN:Bank:Card:USTC CNY
+2017-01-01 open Assets:CN:Bank:Card:USTC                                             CNY
 
-2017-01-01 open Assets:CN:Web:AliPay CNY
+2017-01-01 open Assets:CN:Web:AliPay                                                 CNY
 
-2017-01-01 open Assets:CN:Web:WeChatPay CNY
-2017-01-01 close Assets:CN:Web:WeChatPay
+2017-01-01 open Assets:CN:Web:WeChatPay                                              CNY
+2017-01-01 close Assets:CN:Web:WeChatPay                                               
 
-2017-01-01 open Assets:JP:Cash JPY
+2017-01-01 open Assets:JP:Cash                                                       JPY
 
-2017-01-01 open Assets:Prepaid CNY
+2017-01-01 open Assets:Prepaid                                                       CNY
 
-2017-01-01 open Assets:Transfer CNY,JPY
+2017-01-01 open Assets:Transfer                                                      CNY,JPY
 
-2017-01-01 open Assets:US:Bank:Card:Visa USD
+2017-01-01 open Assets:US:Bank:Card:Visa                                             USD
 
-2017-01-01 open Equity:OpenBalance CNY,JPY
+2017-01-01 open Equity:OpenBalance                                                   CNY,JPY
 
-2017-01-01 open Expenses:XGP CNY
+2017-01-01 open Expenses:XGP                                                         CNY
 
 2021-01-01 * "xgp" "xgp prepaid"
   remain: 11
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-01-03 * "xgp" "xgp prepaid"
-  Assets:Prepaid 100 CNY
-  Assets:CN:Bank:Card:USTC -100 CNY
+  Assets:Prepaid                                                                 100 CNY
+  Assets:CN:Bank:Card:USTC                                                      -100 CNY
 
 2021-02-01 * "xgp" "xgp prepaid"
   remain: 10
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-03-01 * "xgp" "xgp prepaid"
   remain: 9
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-04-01 * "xgp" "xgp prepaid"
   remain: 8
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-05-01 * "xgp" "xgp prepaid"
   remain: 7
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-06-01 * "xgp" "xgp prepaid"
   remain: 6
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-07-01 * "xgp" "xgp prepaid"
   remain: 5
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-08-01 * "xgp" "xgp prepaid"
   remain: 4
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-09-01 * "xgp" "xgp prepaid"
   remain: 3
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-10-01 * "xgp" "xgp prepaid"
   remain: 2
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-11-01 * "xgp" "xgp prepaid"
   remain: 1
-  Expenses:XGP 8.33 CNY
-  Assets:Prepaid -8.33 CNY
+  Expenses:XGP                                                                  8.33 CNY
+  Assets:Prepaid                                                               -8.33 CNY
 
 2021-12-01 * "xgp" "xgp prepaid"
   remain: 0
-  Expenses:XGP 8.37 CNY
-  Assets:Prepaid -8.37 CNY
+  Expenses:XGP                                                                  8.37 CNY
+  Assets:Prepaid                                                               -8.37 CNY

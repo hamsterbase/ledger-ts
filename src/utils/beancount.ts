@@ -11,6 +11,9 @@ import {
 import { compareDate, compareString, mergeSortResult } from "./sort.js";
 
 class BeanCount {
+  private accountPad = 70;
+  private currencyPad = 15;
+
   private indent(deep: number, str: string) {
     return new Array(deep).fill(" ").join("") + str;
   }
@@ -72,16 +75,15 @@ ${this.serializationBalances(ledger.balances)}
       .map((p) => {
         let res = "";
         if (p.openDate) {
-          res += `${this.formateDate(p.openDate)} open ${
-            p.type
-          }:${p.namespace.join(":")} ${p.currencies
-            .map((o) => o.symbol)
-            .join(",")}`;
+          res += `${this.formateDate(p.openDate)} open ${this.accountName(
+            p,
+            this.accountPad - (this.currencyPad - 13)
+          )} ${p.currencies.map((o) => o.symbol).join(",")}`;
         }
         if (p.closeDate) {
-          res += `\n${this.formateDate(p.openDate)} close ${
-            p.type
-          }:${p.namespace.join(":")}`;
+          res += `\n${this.formateDate(p.openDate)} close ${this.accountName(
+            p
+          )}`;
         }
         return res;
       })
@@ -103,9 +105,10 @@ ${this.serializationBalances(ledger.balances)}
         let pad = "";
         if (p.pad) {
           const lastDay = dayjs(p.date).subtract(1, "day").toDate();
-          pad = `${this.formateDate(lastDay)} pad ${this.accountName(
-            p.account
-          )} ${this.accountName(p.pad)}`;
+          pad = `${this.formateDate(lastDay)} pad     ${this.accountName(
+            p.account,
+            0
+          )} ${this.accountName(p.pad, 0)}`;
         }
         return `
 ${pad}
@@ -116,8 +119,10 @@ ${this.formateDate(p.date)} balance ${this.accountName(p.account)} ${
       .join("\n\n");
   }
 
-  private accountName(account: IAccount): string {
-    return `${account.type}:${account.namespace.join(":")}`;
+  private accountName(account: IAccount, pad?: number): string {
+    return `${account.type}:${account.namespace.join(":")}`.padEnd(
+      pad ?? this.accountPad
+    );
   }
 
   serializationTransactions(transactions: ITransaction[]): string {
@@ -164,7 +169,9 @@ ${this.formateDate(p.date)} balance ${this.accountName(p.account)} ${
   private formatPostingsPrice(postings: IPostings) {
     const amount = postings.amount;
 
-    const price = [`${amount.value} ${amount.currency.symbol}`];
+    const price = [
+      `${amount.value} ${amount.currency.symbol}`.padStart(this.currencyPad),
+    ];
 
     if (postings.held) {
       const held = postings.held;
