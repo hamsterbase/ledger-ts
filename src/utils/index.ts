@@ -1,5 +1,5 @@
 export { mergeTransactions, transactionBuilder } from "./transaction.js";
-
+export type { TransactionFn } from "./transaction.js";
 export {
   buildAccountHierarchy,
   createAccountNodeConfig,
