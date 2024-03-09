@@ -3,22 +3,16 @@ import { IPostings, ITransaction } from "../core/type.js";
 
 type ITransactionProcess = (old: ITransaction) => ITransaction;
 
-function buildTr(
-  date: string,
-  narration: string,
-  ...postings: IPostings[]
-): ITransaction;
-function buildTr(
-  date: string,
-  payee: string,
-  narration: string,
-  ...postings: IPostings[]
-): ITransaction;
-function buildTr(
+interface TransactionFn<T> {
+  (date: string, narration: string, ...postings: IPostings[]): T;
+  (date: string, payee: string, narration: string, ...postings: IPostings[]): T;
+}
+
+const buildTr: TransactionFn<ITransaction> = (
   date: string,
   payeeOrNarration: string,
   ...rest: any[]
-): ITransaction {
+): ITransaction => {
   let narration: string;
   let postings: IPostings[];
   let payee: string | undefined = undefined;
@@ -38,23 +32,20 @@ function buildTr(
     postings,
     payee,
   };
-}
+};
 
 export function transactionBuilder(ledger: Ledger) {
-  function tr(date: string, narration: string, ...postings: IPostings[]): void;
-  function tr(
+  const tr: TransactionFn<void> = (
     date: string,
-    payee: string,
-    narration: string,
-    ...postings: IPostings[]
-  ): void;
-  function tr(date: string, payeeOrNarration: string, ...rest: any[]) {
+    payeeOrNarration: string,
+    ...rest: any[]
+  ) => {
     ledger.transaction(buildTr(date, payeeOrNarration, ...rest));
-  }
+  };
 
   function trFactory(
     processEr: ITransactionProcess | Array<ITransactionProcess>
-  ) {
+  ): TransactionFn<void> {
     return function tr(date: string, payeeOrNarration: string, ...rest: any[]) {
       let processErs: ITransactionProcess[] = [];
       if (Array.isArray(processEr)) {
