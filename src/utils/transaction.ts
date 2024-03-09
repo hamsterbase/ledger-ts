@@ -1,9 +1,9 @@
 import { Ledger } from "../core/ledger.js";
 import { IPostings, ITransaction } from "../core/type.js";
 
-type ITransactionProcess = (old: ITransaction) => ITransaction;
+export type ITransactionProcess = (old: ITransaction) => ITransaction;
 
-interface TransactionFn<T> {
+export interface TransactionFn<T> {
   (date: string, narration: string, ...postings: IPostings[]): T;
   (date: string, payee: string, narration: string, ...postings: IPostings[]): T;
 }
