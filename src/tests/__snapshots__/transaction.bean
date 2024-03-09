@@ -48,3 +48,7 @@ option "operating_currency" "CNY"
 2021-01-01 * "first"
   Assets:JP:Cash                                                                 100 JPY
   Assets:CN:Bank:BoC:C1234                                                        -5 CNY { 20 JPY } @@ 100 JPY
+
+2021-01-01 * "XGP"
+  Expenses:XGP                                                                   100 CNY
+  Assets:CN:Web:WeChatPay                                                       -100 CNY
