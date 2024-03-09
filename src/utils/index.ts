@@ -19,3 +19,5 @@ export type { CurrencyConfig } from "./currency.js";
 export { settle } from "./settle.js";
 
 export { prepaid } from "./prepaid.js";
+
+export { padAccount } from "./pad-account.js";
