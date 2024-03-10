@@ -1,5 +1,6 @@
+import dayjs from "dayjs";
 import { Ledger } from "../core/ledger.js";
-import { IPostings, ITransaction } from "../core/type.js";
+import { IPostings, ITransaction, Metadata } from "../core/type.js";
 
 export type ITransactionProcess = (old: ITransaction) => ITransaction;
 
@@ -24,6 +25,13 @@ const buildTr: TransactionFn<ITransaction> = (
     narration = payeeOrNarration;
     postings = rest;
   }
+
+  const onlyDate = date === dayjs(new Date(date)).format("YYYY-MM-DD");
+
+  const metadata: Metadata = {};
+  if (!onlyDate) {
+    metadata["date"] = date;
+  }
   return {
     type: "transaction",
     date: new Date(date),
@@ -31,6 +39,7 @@ const buildTr: TransactionFn<ITransaction> = (
     narration,
     postings,
     payee,
+    metadata,
   };
 };
 

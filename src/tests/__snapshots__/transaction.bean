@@ -51,4 +51,19 @@ option "operating_currency" "CNY"
 
 2021-01-01 * "XGP"
   Expenses:XGP                                                                   100 CNY
-  Assets:CN:Web:WeChatPay                                                       -100 CNY
+  Assets:CN:Web:AliPay                                                          -100 CNY
+
+2021-01-01 * "XGP_SORT"
+  date: "2021-01-01 09:59"
+  Expenses:XGP                                                                     7 CNY
+  Assets:CN:Web:AliPay                                                            -7 CNY
+
+2021-01-01 * "XGP_SORT"
+  date: "2021-01-01 10:01"
+  Expenses:XGP                                                                     9 CNY
+  Assets:CN:Web:AliPay                                                            -9 CNY
+
+2021-01-01 * "XGP_SORT"
+  date: "2021-01-01 10:03"
+  Expenses:XGP                                                                     8 CNY
+  Assets:CN:Web:AliPay                                                            -8 CNY

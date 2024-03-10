@@ -46,9 +46,13 @@ it("test price and cost", () => {
     cnAccount.posting(-5).heldPrice(20, JPY).asCost(100, JPY)
   );
 
-  const wechatTr = trFactory(padAccount(assets.CN.Web.WeChatPay));
+  const wechatTr = trFactory(padAccount(assets.CN.Web.AliPay));
 
   wechatTr("2021-01-01", "XGP", expenses.XGP.posting(100));
+
+  wechatTr("2021-01-01 09:59", "XGP_SORT", expenses.XGP.posting(7));
+  wechatTr("2021-01-01 10:01", "XGP_SORT", expenses.XGP.posting(9));
+  wechatTr("2021-01-01 10:03", "XGP_SORT", expenses.XGP.posting(8));
 
   assertSnapshot(ledger, "transaction");
 });
